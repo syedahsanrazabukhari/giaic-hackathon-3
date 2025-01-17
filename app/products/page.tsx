@@ -4,28 +4,26 @@ import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 
-
-
 export default async function Home() {
-  const data = await client.fetch(`*[_type == "Product"]{
-    id,
-    productName,
-    Productprice, 
-    "imageUrl": ProductImage.asset->url  
+  const data = await client.fetch(`*[_type == "product"] {
+    name,
+    "imageUrl": image.asset->url,
+    price,
+    slug
   }`);
-
-
 
   return (
     <>
       <Navbar />
-
 
       <main>
         {/* Hero */}
         <section className="h-[146px] sm:h-[209px] bg-cover bg-center sm:pl-20 pb-8 sm:pb-9 content-end text-white max-sm:text-center" style={{ backgroundImage: "url(/product-hero-bg.jpeg)" }}>
           <h1>All products</h1>
         </section>
+
+
+
 
         {/* Cateogries */}
         <section className=" px-6 sm:px-6 py-5 sm:py-2 flex justify-between items-center">
@@ -64,26 +62,26 @@ export default async function Home() {
 
 
 
-
         {/* Products */}
         <div className='w-390 lg:w-full pt-6 pb-7 px-6 lg:px-[80px]'>
-          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[15px]'>
+          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[60px]'>
             {data.map((product: any) => (
-              <Link href={`/products/${product.id}`}
-                key={product.id}
-                className='flex flex-col gap-2 lg:gap-6 text-[#2A254B] border shadow-xl transition-transform duration-300 hover:z-10 hover:scale-105 p-4 sm:p-6 rounded-lg'
+              <Link 
+                href={product.slug ? `/products/${product.slug.current}` : '#'} // Check if slug exists
+                key={product.slug ? product.slug.current : product.name} // Fallback to name if slug is missing
+                className='flex flex-col gap-2 lg:gap-6 text-[#2A254B] border shadow-xl transition-transform duration-300 hover:z-10 hover:scale-105  rounded-lg'
               >
                 {/* Render image */}
                 <Image
-                  src={product.imageUrl || 'default-image.jpg'} // Add fallback for missing image
-                  alt={product.productName}
+                  src={product.imageUrl || '/default-image.jpg'} // Add fallback for missing image
+                  alt={product.name}
                   width={305}
                   height={375}
-                  className='w-full'
+                  className='w-full object-left-top'
                 />
-                <h4 className='text-[14px] lg:text-[20px] leading-5 lg:leading-7 font-normal'>{product.productName}</h4>
-                <p className=' text-[12px] lg:text-[18px] leading-5 lg:leading-7 font-normal'>
-                  {product.Productprice ? `£${product.Productprice}` : 'Price not available'}
+                <h4 className='text-[14px] lg:text-[20px] leading-5 lg:leading-7 font-normal'>{product.name}</h4>
+                <p className='text-[12px] lg:text-[18px] leading-5 lg:leading-7 font-normal'>
+                  {product.price ? `£${product.price}` : 'Price not available'}
                 </p>
               </Link>
             ))}
@@ -93,8 +91,6 @@ export default async function Home() {
           </button>
         </div>
       </main>
-
-
 
       <Footer />
     </>
