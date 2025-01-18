@@ -64,7 +64,7 @@ export default async function Home() {
 
         {/* Products */}
         <div className='w-390 lg:w-full pt-6 pb-7 px-6 lg:px-[80px]'>
-          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[60px]'>
+          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[40px] rounded-xl'>
             {data.map((product: any) => (
               <Link 
                 href={product.slug ? `/products/${product.slug.current}` : '#'} // Check if slug exists

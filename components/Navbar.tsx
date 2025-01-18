@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import Category from "./Category"
 
 export default function Navbar() {
     return (
@@ -18,18 +19,7 @@ export default function Navbar() {
                     <Image src="/nav-user.svg" alt="Image-failed" width={16} height={16} />
                 </div>
             </div>
-
-
-
-            <ul className="flex gap-x-11 text-[#726E8D] justify-center pt-5 max-sm:hidden">
-                <Link href="/products"> <li>Plant pots</li></Link>
-                <Link href="/products"></Link> <li>Ceramics</li>
-                <Link href="/products">  <li>Tables</li></Link>
-                <Link href="/products"> <li>Chairs</li></Link>
-                <Link href="/products"> <li>Crockery</li></Link>
-                <Link href="/products"> <li>Tableware</li></Link>
-                <Link href="/products"> <li>Cutlery</li></Link>
-            </ul>
+            <Category />
         </nav>
     )
 }
