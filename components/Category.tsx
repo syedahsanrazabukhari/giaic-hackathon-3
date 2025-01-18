@@ -5,10 +5,10 @@ export default function Category() {
     <>
       <ul className="flex gap-x-11 text-[#726E8D] justify-center pt-5 max-sm:hidden">
         <li>
-          <Link href="/products?category=plant-pots">Plant pots</Link>
+          <Link href="/products?category=plant%20pots">Plant pots</Link>
         </li>
         <li>
-          <Link href="/products?category=ceramic">Cerami</Link>
+          <Link href="/products?category=ceramics">Ceramics</Link>
         </li>
         <li>
           <Link href="/products?category=tables">Tables</Link>
@@ -17,7 +17,7 @@ export default function Category() {
           <Link href="/products?category=chairs">Chairs</Link>
         </li>
         <li>
-          <Link href="/products?category=crockery">Crockery</Link>
+          <Link href="/products?category=crockory">Crockory</Link>
         </li>
         <li>
           <Link href="/products?category=tableware">Tableware</Link>
