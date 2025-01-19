@@ -4,16 +4,16 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
+import FeaturedProductCard from "@/components/FeaturedProductCard";
 
 export default async function Home() {
   const data = await client.fetch(`*[_type == "product"] {
+    _id,
     name,
     "imageUrl": image.asset->url,
     price,
     slug
   }`);
-
-
 
   return (
     <>
@@ -93,21 +93,7 @@ export default async function Home() {
       <div className='w-390 lg:w-full pt-6 pb-7 px-6 lg:px-[80px]'>
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[40px] rounded-xl'>
           {data.slice(0, 4).map((product: any) => (
-            <Link
-              href={product.slug ? `/products/${product.slug.current}` : "#"}
-              key={product.name}
-              className="flex flex-col gap-2 lg:gap-6 text-[#2A254B] border shadow-xl transition-transform duration-300 hover:z-10 hover:scale-105 rounded-lg"
-            >
-              <Image
-                src={product.imageUrl || "/default-image.jpg"}
-                alt={product.name}
-                width={305}
-                height={375}
-                className="w-full h-full"
-              />
-              <h3 className="pl-3">{product.name}</h3>
-              <p className="pl-3 pb-3">£{product.price}</p>
-            </Link>
+            <FeaturedProductCard key={product._id} product={product} />
           ))}
         </div>
 

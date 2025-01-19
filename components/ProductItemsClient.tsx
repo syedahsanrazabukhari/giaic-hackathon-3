@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import ProductCard from "./ProductCard";
 
 export default function ProductItemsClient({ products }: { products: any[] }) {
   const searchParams = useSearchParams();
@@ -24,23 +23,7 @@ export default function ProductItemsClient({ products }: { products: any[] }) {
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[40px] my-20 mx-10">
       {filteredProducts.length > 0 ? (
         filteredProducts.map((product) => (
-          <Link
-            href={product.slug ? `/products/${product.slug.current}` : "#"}
-            key={product.name}
-            className="flex flex-col gap-2 lg:gap-6 text-[#2A254B] border shadow-xl transition-transform duration-300 hover:z-10 hover:scale-105 rounded-lg"
-          >
-            <Image
-              src={product.imageUrl || "/default-image.jpg"}
-              alt={product.name}
-              width={305}
-              height={375}
-              className="w-full h-full"
-            />
-            <div className="pl-3 space-y-3">
-              <h3>{product.name}</h3>
-              <p className="pb-3">£{product.price}</p>
-            </div>
-          </Link>
+          <ProductCard key={product._id} product={product} />
         ))
       ) : (
         <p className="text-center">No products found for the selected category.</p>

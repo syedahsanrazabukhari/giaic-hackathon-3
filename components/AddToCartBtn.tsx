@@ -7,19 +7,23 @@ const AddToCartBtn = ({ id }: { id: number }) => {
     const router = useRouter();
 
     const addToCart = () => {
-        let cart = JSON.parse(localStorage.getItem("cart")!);
+        let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-        if (cart === null) {
-            localStorage.setItem("cart", JSON.stringify([]));
-            cart = JSON.parse(localStorage.getItem("cart")!);
-        }
         if (Array.isArray(cart)) {
             const isProductPresent = cart.find((item: number) => item === id);
-            isProductPresent ? alert("This product is already in cart") : cart.push(id);
+            if (isProductPresent) {
+                alert("This product is already in cart");
+                return;
+            }
+            cart.push(id);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            
+            // Dispatch events to update navbar
+            window.dispatchEvent(new Event('cartUpdate'));
+            window.dispatchEvent(new Event('storage'));
+            
+            router.push("/cart");
         }
-        localStorage.setItem("cart", JSON.stringify(cart));
-
-        router.push("/cart");
     }
 
     return (

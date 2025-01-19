@@ -3,6 +3,7 @@ import ProductItemsClient from "./ProductItemsClient";
 
 export default async function ProductItems() {
   const data = await client.fetch(`*[_type == "product"] {
+    _id,
     name,
     "imageUrl": image.asset->url,
     price,
@@ -12,7 +13,6 @@ export default async function ProductItems() {
     }
   }`);
   console.log(data);
-
 
   return <ProductItemsClient products={data} />;
 }
