@@ -13,15 +13,18 @@ const CartProducts = () => {
             const cart = JSON.parse(localStorage.getItem('cart')!);
             if (cart) {
                 let cartProducts = await client.fetch(`
-                    *[_type == "Product" && id in $cart] {
-                        id,
-                        productName,
-                        Productprice,
-                        Productdetail,
-                        "imageUrl": ProductImage.asset->url
-                    }`
-                    , { cart }
+                    *[_type == "product" && _id in $cart] {
+                        _id,
+                        name,
+                        "imageUrl": image.asset->url,
+                        price,
+                    }
+                    `,
+                    { cart }
                 );
+                console.log(cart);
+                console.log(cartProducts);
+
                 cartProducts = cartProducts.map((product: any) => ({ ...product, quantity: 1 }));
                 setProducts(cartProducts);
             } else {
@@ -43,7 +46,7 @@ const CartProducts = () => {
     };
 
     const totalAmount = (): number => {
-        return products?.reduce((acc, product) => acc + product.quantity * product.Productprice, 0);
+        return products?.reduce((acc, product) => acc + product.quantity * product.price, 0);
     };
 
     const handleCheckout = () => {
@@ -68,9 +71,9 @@ const CartProducts = () => {
                                 <div className="flex gap-x-[21px] sm:items-center">
                                     <Image src={product.imageUrl} alt="Failed to load" width={64} height={64} className="size-16" />
                                     <div className="space-y-2 max-sm:mt-[19px] grow">
-                                        <h4 className="text-[16px] leading-[20px]">{product.productName}</h4>
+                                        <h4 className="text-[16px] leading-[20px]">{product.name}</h4>
                                         <div>
-                                            <p>£{product.Productprice}</p>
+                                            <p>£{product.price}</p>
                                             <div className="py-3 px-4 sm:hidden flex items-center gap-x-8">
                                                 <button onClick={() => increment(i)}>+</button>
                                                 <span>{product.quantity}</span>
@@ -87,7 +90,7 @@ const CartProducts = () => {
                                     <button onClick={() => decrement(i)}>-</button>
                                 </div>
                             </td>
-                            <td className="max-sm:hidden text-center sm:w-28">£{product.quantity * product.Productprice}</td>
+                            <td className="max-sm:hidden text-center sm:w-28">£{product.quantity * product.price}</td>
                         </tr>
                     ))}
                 </tbody>

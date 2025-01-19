@@ -92,24 +92,21 @@ export default async function Home() {
       {/* third section */}
       <div className='w-390 lg:w-full pt-6 pb-7 px-6 lg:px-[80px]'>
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[40px] rounded-xl'>
-          {data.slice(0,4).map((product: any) => (
+          {data.slice(0, 4).map((product: any) => (
             <Link
-              href={product.slug ? `/products/${product.slug.current}` : '#'} // Check if slug exists
-              key={product.slug ? product.slug.current : product.name} // Fallback to name if slug is missing
-              className='flex flex-col gap-2 lg:gap-6 text-[#2A254B] border shadow-xl transition-transform duration-300 hover:z-10 hover:scale-105  rounded-lg'
+              href={product.slug ? `/products/${product.slug.current}` : "#"}
+              key={product.name}
+              className="flex flex-col gap-2 lg:gap-6 text-[#2A254B] border shadow-xl transition-transform duration-300 hover:z-10 hover:scale-105 rounded-lg"
             >
-              {/* Render image */}
               <Image
-                src={product.imageUrl || '/default-image.jpg'} // Add fallback for missing image
+                src={product.imageUrl || "/default-image.jpg"}
                 alt={product.name}
                 width={305}
                 height={375}
-                className='w-full h-full'
+                className="w-full h-full"
               />
-              <h4 className='text-[14px] lg:text-[20px] leading-5 lg:leading-7 font-normal'><b>NAME: </b>{product.name}</h4>
-              <p className='text-[12px] lg:text-[18px] leading-5 lg:leading-7 font-normal'>
-                <b>PRICE: </b>{product.price ? `£${product.price}` : 'Price not available'}
-              </p>
+              <h3 className="pl-3">{product.name}</h3>
+              <p className="pl-3 pb-3">£{product.price}</p>
             </Link>
           ))}
         </div>

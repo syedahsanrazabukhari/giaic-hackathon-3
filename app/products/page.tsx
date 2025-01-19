@@ -54,7 +54,7 @@ export default async function Home() {
 
 
         {/* Products */}
-        <ProductItems/>
+        <ProductItems />
       </main>
 
       <Footer />

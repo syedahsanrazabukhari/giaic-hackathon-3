@@ -55,7 +55,7 @@ export default function Footer() {
 
 
             <section className="pt-6 flex sm:justify-between items-center justify-center">
-                <p className="body-sm">Copyright 2022 Avion LTD</p>
+                <p className="body-sm">Copyright 2024 Avion LTD</p>
 
                 <div className="flex gap-x-6 max-sm:hidden">
                     <Image src="/facebook.svg" alt="facebook" width={24} height={24} />

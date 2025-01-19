@@ -11,6 +11,8 @@ export default async function ProductItems() {
       name
     }
   }`);
+  console.log(data);
+
 
   return <ProductItemsClient products={data} />;
 }

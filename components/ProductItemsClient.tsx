@@ -8,17 +8,17 @@ export default function ProductItemsClient({ products }: { products: any[] }) {
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category");
 
-  console.log("Selected category:", selectedCategory); 
+  console.log("Selected category:", selectedCategory);
 
   const filteredProducts = selectedCategory
     ? products.filter((product) => {
-        const productCategory = product.category?.name?.toLowerCase();
-        const queryCategory = selectedCategory.toLowerCase();
-        return productCategory === queryCategory;
-      })
+      const productCategory = product.category?.name?.toLowerCase();
+      const queryCategory = selectedCategory.toLowerCase();
+      return productCategory === queryCategory;
+    })
     : products;
 
-  console.log("Filtered products:", filteredProducts); 
+  console.log("Filtered products:", filteredProducts);
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[40px] my-20 mx-10">
@@ -36,8 +36,10 @@ export default function ProductItemsClient({ products }: { products: any[] }) {
               height={375}
               className="w-full h-full"
             />
-            <h3 className="pl-3">{product.name}</h3>
-            <p className="pl-3 pb-3">£{product.price}</p>
+            <div className="pl-3 space-y-3">
+              <h3>{product.name}</h3>
+              <p className="pb-3">£{product.price}</p>
+            </div>
           </Link>
         ))
       ) : (
