@@ -7,7 +7,10 @@ export default function Navbar() {
         <nav className="px-6 sm:px-[28px] py-5">
             <div className="flex justify-between items-center sm:pb-5 sm:border-b border-[#0000001a]">
                 <div className="flex gap-x-5 max-sm:order-1">
-                    <Image src="/nav-search.svg" alt="Image failed" width={16} height={16} />
+                    <div className="flex items-center bg-slate-200 rounded-full px-3 py-3 border border-transparent focus-within:border-black">
+                        <Image src="/nav-search.svg" alt="Search Icon" width={16} height={16} className="mr-2"/>
+                        <input type="text"  placeholder="Search..."  className="bg-transparent focus:outline-none text-sm w-full" />
+                    </div>
                     <Image src="/nav-hamburger.svg" alt="Image failed" width={16} height={16} className="sm:hidden" />
                 </div>
 

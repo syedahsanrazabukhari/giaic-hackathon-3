@@ -12,7 +12,5 @@ export default async function ProductItems() {
     }
   }`);
 
-  console.log("Fetched products:", data); 
-
   return <ProductItemsClient products={data} />;
 }

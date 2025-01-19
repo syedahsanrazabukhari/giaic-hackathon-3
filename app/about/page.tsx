@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
+import Category from '@/components/Category'
 
 const About = () => {
     return (
@@ -40,15 +41,9 @@ const About = () => {
                 </div>
 
 
-                <ul className="flex gap-x-11 sm:justify-center text-[#726E8D] max-sm:px-6 py-4 sm:py-5 bg-[--light-gray] *:w-max *:shrink-0 max-sm:overflow-x-auto">
-                    <li>All products</li>
-                    <li>Plant pots</li>
-                    <li>Ceramics</li>
-                    <li>Tables</li>
-                    <li>Chairs</li>
-                    <li>Crockery</li>
-                    <li>Tableware</li>
-                    <li>Cutlery</li>
+                <ul className="flex gap-x-11 sm:justify-center text-[#726E8D] max-sm:px-6 py-4 sm:py-5 bg-[--light-gray] *:w-max *:shrink-0 max-sm:overflow-x-auto items-center">
+                    <Link href="/products"><li className='pt-4'>All products</li></Link>
+                    <Category />
                 </ul>
             </nav>
 
