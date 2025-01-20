@@ -18,7 +18,6 @@ const AddToCartBtn = ({ id }: { id: number }) => {
             cart.push(id);
             localStorage.setItem("cart", JSON.stringify(cart));
             
-            // Dispatch events to update navbar
             window.dispatchEvent(new Event('cartUpdate'));
             window.dispatchEvent(new Event('storage'));
             

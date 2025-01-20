@@ -51,11 +51,9 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
       const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
       
       if (isInWishlist) {
-        // Remove from wishlist
         const updatedWishlist = wishlist.filter((item: any) => item.id !== product._id);
         localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
       } else {
-        // Add to wishlist
         const wishlistItem = {
           id: product._id,
           name: product.name,
@@ -66,10 +64,8 @@ export default function FeaturedProductCard({ product }: FeaturedProductCardProp
         localStorage.setItem('wishlist', JSON.stringify([...wishlist, wishlistItem]));
       }
 
-      // Update local state
       setIsInWishlist(!isInWishlist);
       
-      // Notify other components
       window.dispatchEvent(new Event('wishlistUpdate'));
       window.dispatchEvent(new Event('storage'));
     } catch (error) {

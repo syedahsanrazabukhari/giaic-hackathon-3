@@ -19,7 +19,6 @@ const Wishlist = () => {
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
 
   useEffect(() => {
-    // Load wishlist from localStorage when component mounts
     const savedWishlist = localStorage.getItem('wishlist');
     if (savedWishlist) {
       setWishlistItems(JSON.parse(savedWishlist));

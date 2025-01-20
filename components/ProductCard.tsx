@@ -52,11 +52,9 @@ export default function ProductCard({ product }: ProductCardProps) {
     const wishlist = getWishlistItems();
     
     if (isInWishlist) {
-      // Remove from wishlist
       const updatedWishlist = wishlist.filter((item: any) => item.id !== product._id);
       localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
     } else {
-      // Add to wishlist
       const wishlistItem = {
         id: product._id,
         name: product.name,
@@ -67,10 +65,8 @@ export default function ProductCard({ product }: ProductCardProps) {
       localStorage.setItem('wishlist', JSON.stringify([...wishlist, wishlistItem]));
     }
 
-    // Update local state
     setIsInWishlist(!isInWishlist);
     
-    // Notify other components
     window.dispatchEvent(new Event('wishlistUpdate'));
     window.dispatchEvent(new Event('storage'));
   };
