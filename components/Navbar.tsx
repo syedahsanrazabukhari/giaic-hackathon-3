@@ -15,51 +15,47 @@ interface Product {
     price: number;
 }
 
-const getCartItems = () => {
-    if (typeof window === 'undefined') return [];
-    try {
-        return JSON.parse(localStorage.getItem('cart') || '[]');
-    } catch {
-        return [];
-    }
-};
-
-const getWishlistItems = () => {
-    if (typeof window === 'undefined') return [];
-    try {
-        return JSON.parse(localStorage.getItem('wishlist') || '[]');
-    } catch {
-        return [];
-    }
-};
-
-export default function Navbar() {
-    const [wishlistCount, setWishlistCount] = useState(() => getWishlistItems().length);
-    const [cartCount, setCartCount] = useState(() => getCartItems().length);
+const Navbar = () => {
+    const [wishlistCount, setWishlistCount] = useState<number>(0);
+    const [cartCount, setCartCount] = useState<number>(0);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState<Product[]>([]);
     const [showResults, setShowResults] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        const handleStorageChange = () => {
-            setWishlistCount(getWishlistItems().length);
-            setCartCount(getCartItems().length);
+        setMounted(true);
+        const updateCounts = () => {
+            if (typeof window !== 'undefined') {
+                try {
+                    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+                    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    setWishlistCount(wishlist.length);
+                    setCartCount(cart.length);
+                } catch (error) {
+                    console.error('Error reading from localStorage:', error);
+                    setWishlistCount(0);
+                    setCartCount(0);
+                }
+            }
         };
 
-        window.addEventListener('storage', handleStorageChange);
-        window.addEventListener('wishlistUpdate', handleStorageChange);
-        window.addEventListener('cartUpdate', handleStorageChange);
+        updateCounts();
 
-        handleStorageChange();
-        
+        window.addEventListener('storage', updateCounts);
+        window.addEventListener('wishlistUpdate', updateCounts);
+        window.addEventListener('cartUpdate', updateCounts);
+
         return () => {
-            window.removeEventListener('storage', handleStorageChange);
-            window.removeEventListener('wishlistUpdate', handleStorageChange);
-            window.removeEventListener('cartUpdate', handleStorageChange);
+            window.removeEventListener('storage', updateCounts);
+            window.removeEventListener('wishlistUpdate', updateCounts);
+            window.removeEventListener('cartUpdate', updateCounts);
         };
     }, []);
 
     useEffect(() => {
+        if (!mounted) return;
+
         const searchProducts = async () => {
             if (searchTerm.trim().length < 2) {
                 setSearchResults([]);
@@ -76,7 +72,6 @@ export default function Navbar() {
                 }[0...5]`;
                 
                 const results = await client.fetch(query);
-                console.log('Search results:', results);
                 setSearchResults(results);
             } catch (error) {
                 console.error('Error searching products:', error);
@@ -86,7 +81,17 @@ export default function Navbar() {
 
         const debounceTimer = setTimeout(searchProducts, 300);
         return () => clearTimeout(debounceTimer);
-    }, [searchTerm]);
+    }, [searchTerm, mounted]);
+
+    if (!mounted) {
+        return (
+            <nav className="px-6 sm:px-[28px] py-5">
+                <div className="flex justify-between items-center sm:pb-5 sm:border-b border-[#0000001a]">
+                    <Link href="/"><Image src="/avion-logo.png" alt="Image failed" width={65} height={30} /></Link>
+                </div>
+            </nav>
+        );
+    }
 
     const handleProductClick = (product: Product) => {
         console.log('Clicked product:', product);
@@ -173,3 +178,5 @@ export default function Navbar() {
         </nav>
     )
 }
+
+export default Navbar;
