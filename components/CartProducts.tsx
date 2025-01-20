@@ -8,30 +8,39 @@ import { FaTrash } from "react-icons/fa";
 
 const CartProducts = () => {
     const [products, setProducts] = useState<any[]>();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const cart = JSON.parse(localStorage.getItem('cart')!);
-            if (cart) {
-                let cartProducts = await client.fetch(`
-                    *[_type == "product" && _id in $cart] {
-                        _id,
-                        name,
-                        "imageUrl": image.asset->url,
-                        price,
-                    }
-                    `,
-                    { cart }
-                );
-                console.log(cart);
-                console.log(cartProducts);
-
-                cartProducts = cartProducts.map((product: any) => ({ ...product, quantity: 1 }));
-                setProducts(cartProducts);
-            } else {
+            try {
+                setIsLoading(true);
+                const cartData = window.localStorage.getItem('cart');
+                const cart = cartData ? JSON.parse(cartData) : null;
+                
+                if (cart && cart.length > 0) {
+                    let cartProducts = await client.fetch(`
+                        *[_type == "product" && _id in $cart] {
+                            _id,
+                            name,
+                            "imageUrl": image.asset->url,
+                            price,
+                        }
+                        `,
+                        { cart }
+                    );
+                    cartProducts = cartProducts.map((product: any) => ({ ...product, quantity: 1 }));
+                    setProducts(cartProducts);
+                } else {
+                    setProducts([]);
+                }
+            } catch (error) {
+                console.error('Error fetching cart products:', error);
                 setProducts([]);
+            } finally {
+                setIsLoading(false);
             }
         };
+
         fetchProducts();
     }, []);
 
@@ -68,7 +77,11 @@ const CartProducts = () => {
 
     return (
         <div className="px-4 py-8">
-            {(!products || products.length === 0) ? (
+            {isLoading ? (
+                <div className="text-center py-8">
+                    <p>Loading cart...</p>
+                </div>
+            ) : (!products || products.length === 0) ? (
                 <div className="text-center">
                     <h2 className="text-2xl font-semibold text-[#2A254B] mb-4">Your Cart is Empty</h2>
                     <Link href="/products">

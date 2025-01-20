@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
 import Category from '@/components/Category'
+import Navbar from '@/components/Navbar'
 
 const About = () => {
     return (
@@ -15,40 +16,8 @@ const About = () => {
                 <Image className='sm:absolute right-4' src="/close.svg" alt="failed" width={24} height={24} />
             </header>
 
-
-
-
             {/* Navbar */}
-            <nav>
-                <div className="px-6 sm:px-7 py-5 flex justify-between items-center">
-                    <Link href="/"> <Image src="/avion-logo.png" alt="Image failed" width={65} height={30} /></Link>
-
-                    <div className='flex gap-x-12 items-center'>
-                        <ul className="flex gap-x-8 text-[#726E8D] max-sm:hidden">
-                            <li>About us</li>
-                            <li>Contact</li>
-                            <li>Blog</li>
-                        </ul>
-
-                        <div className="flex gap-x-4 max-sm:hidden">
-                            <Image src="/nav-search.svg" alt="Image failed" width={16} height={16} />
-                            <Image src="/nav-cart.svg" alt="Image-failed" width={16} height={16} />
-                            <Image src="/nav-user.svg" alt="Image-failed" width={16} height={16} />
-                        </div>
-
-                        <Image src="/nav-hamburger.svg" alt="Image failed" width={16} height={16} className="sm:hidden" />
-                    </div>
-                </div>
-
-
-                <ul className="flex gap-x-11 sm:justify-center text-[#726E8D] max-sm:px-6 py-4 sm:py-5 bg-[--light-gray] *:w-max *:shrink-0 max-sm:overflow-x-auto items-center">
-                    <Link href="/products"><li className='pt-4'>All products</li></Link>
-                    <Category />
-                </ul>
-            </nav>
-
-
-
+            <Navbar />
 
             <main>
                 <section className='max-sm:space-y-10 px-6 sm:px-[128px] py-8 sm:py-[88px] sm:flex justify-between'>
