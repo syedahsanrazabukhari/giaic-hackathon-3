@@ -15,64 +15,66 @@ interface FeaturedProductCardProps {
   };
 }
 
-const getWishlistItems = () => {
-  if (typeof window === 'undefined') return [];
-  try {
-    return JSON.parse(localStorage.getItem('wishlist') || '[]');
-  } catch {
-    return [];
-  }
-};
-
 export default function FeaturedProductCard({ product }: FeaturedProductCardProps) {
-  const [isInWishlist, setIsInWishlist] = useState(() => {
-    const wishlist = getWishlistItems();
-    return wishlist.some((item: any) => item.id === product._id);
-  });
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      const wishlist = getWishlistItems();
-      setIsInWishlist(wishlist.some((item: any) => item.id === product._id));
+    setMounted(true);
+    const checkWishlist = () => {
+      try {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        setIsInWishlist(wishlist.some((item: any) => item.id === product._id));
+      } catch (error) {
+        console.error('Error reading wishlist:', error);
+        setIsInWishlist(false);
+      }
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('wishlistUpdate', handleStorageChange);
+    checkWishlist();
+
+    window.addEventListener('storage', checkWishlist);
+    window.addEventListener('wishlistUpdate', checkWishlist);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('wishlistUpdate', handleStorageChange);
+      window.removeEventListener('storage', checkWishlist);
+      window.removeEventListener('wishlistUpdate', checkWishlist);
     };
   }, [product._id]);
 
   const toggleWishlist = (e: React.MouseEvent) => {
+    if (!mounted) return;
     e.preventDefault();
     e.stopPropagation();
 
-    const wishlist = getWishlistItems();
-    
-    if (isInWishlist) {
-      // Remove from wishlist
-      const updatedWishlist = wishlist.filter((item: any) => item.id !== product._id);
-      localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-    } else {
-      // Add to wishlist
-      const wishlistItem = {
-        id: product._id,
-        name: product.name,
-        imageUrl: product.imageUrl,
-        price: product.price,
-        slug: product.slug.current
-      };
-      localStorage.setItem('wishlist', JSON.stringify([...wishlist, wishlistItem]));
-    }
+    try {
+      const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      
+      if (isInWishlist) {
+        // Remove from wishlist
+        const updatedWishlist = wishlist.filter((item: any) => item.id !== product._id);
+        localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+      } else {
+        // Add to wishlist
+        const wishlistItem = {
+          id: product._id,
+          name: product.name,
+          imageUrl: product.imageUrl,
+          price: product.price,
+          slug: product.slug.current
+        };
+        localStorage.setItem('wishlist', JSON.stringify([...wishlist, wishlistItem]));
+      }
 
-    // Update local state
-    setIsInWishlist(!isInWishlist);
-    
-    // Notify other components
-    window.dispatchEvent(new Event('wishlistUpdate'));
-    window.dispatchEvent(new Event('storage'));
+      // Update local state
+      setIsInWishlist(!isInWishlist);
+      
+      // Notify other components
+      window.dispatchEvent(new Event('wishlistUpdate'));
+      window.dispatchEvent(new Event('storage'));
+    } catch (error) {
+      console.error('Error updating wishlist:', error);
+    }
   };
 
   return (
