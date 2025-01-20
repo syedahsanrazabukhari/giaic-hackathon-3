@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
+import { FaTrash } from "react-icons/fa";
 
 const CartProducts = () => {
     const [products, setProducts] = useState<any[]>();
@@ -54,6 +55,17 @@ const CartProducts = () => {
         setProducts([]);
     };
 
+    const removeItem = (productId: string) => {
+        // Remove from state
+        const updatedProducts = products?.filter(product => product._id !== productId);
+        setProducts(updatedProducts);
+
+        // Remove from localStorage
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const updatedCart = cart.filter((id: string) => id !== productId);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
+
     return (
         <div className="px-4 py-8">
             {(!products || products.length === 0) ? (
@@ -73,6 +85,7 @@ const CartProducts = () => {
                                 <td>Product</td>
                                 <td>Quantity</td>
                                 <td>Total</td>
+                                <td>Action</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,6 +115,15 @@ const CartProducts = () => {
                                         </div>
                                     </td>
                                     <td className="max-sm:hidden text-center sm:w-28">£{product.quantity * product.price}</td>
+                                    <td>
+                                        <button 
+                                            onClick={() => removeItem(product._id)}
+                                            className="text-red-500 hover:text-red-700 transition-colors p-2"
+                                            aria-label="Remove item"
+                                        >
+                                            <FaTrash size={18} />
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
