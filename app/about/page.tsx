@@ -22,7 +22,9 @@ const About = () => {
             <main>
                 <section className='max-sm:space-y-10 px-6 sm:px-[128px] py-8 sm:py-[88px] sm:flex justify-between'>
                     <h1 className='sm:w-[704px]'>A brand built on the love of craftmanship, quality and outstanding customer service</h1>
-                    <button className="btn btn-secondary max-sm:w-full max-sm:text-center">View our products</button>
+                    <Link href="/products">
+                        <button className="btn btn-secondary max-sm:w-full max-sm:text-center">View our products</button>
+                    </Link>
                 </section>
 
 
@@ -36,7 +38,9 @@ const About = () => {
                             <p className='body-lg max-sm:hidden'>A global brand with local beginnings, our story begain in a small studio in South London in early 2014</p>
                         </div>
 
-                        <button className='btn btn-opaque max-sm:w-full max-sm:text-center'>View collection</button>
+                        <Link href="/products">
+                            <button className='btn btn-opaque max-sm:w-full max-sm:text-center'>View collection</button>
+                        </Link>
                     </div>
                     <div>
                         <Image src="/about.png" alt="failed" width={630} height={478} />
@@ -55,7 +59,9 @@ const About = () => {
                             <p className='text-[#505977]'>Handmade, and lovingly crafted furniture and homeware is what we live, breathe and design so our Chelsea boutique become the hotbed for the London interior design community.</p>
                         </div>
                         <div>
-                            <button className='btn btn-primary max-sm:w-full max-sm:text-center'>Get in touch</button>
+                            <Link href="/products">
+                                <button className='btn btn-primary max-sm:w-full max-sm:text-center'>View our products</button>
+                            </Link>
                         </div>
                     </div>
                 </section>
