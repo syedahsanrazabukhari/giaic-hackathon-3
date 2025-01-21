@@ -7,7 +7,7 @@ const AddToCartBtn = ({ id }: { id: number }) => {
     const router = useRouter();
 
     const addToCart = () => {
-        let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
         if (Array.isArray(cart)) {
             const isProductPresent = cart.find((item: number) => item === id);
