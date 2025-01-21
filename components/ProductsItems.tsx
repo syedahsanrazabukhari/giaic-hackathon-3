@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import ProductItemsClient from "./ProductItemsClient";
+import { Suspense } from "react";
 
 export default async function ProductItems() {
   const data = await client.fetch(`*[_type == "product"] {
@@ -14,5 +15,9 @@ export default async function ProductItems() {
   }`);
   console.log(data);
 
-  return <ProductItemsClient products={data} />;
+  return (
+    <Suspense fallback={<p>Loading products...</p>}>
+      <ProductItemsClient products={data} />
+    </Suspense>
+  );
 }

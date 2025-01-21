@@ -11,10 +11,10 @@ export default function ProductItemsClient({ products }: { products: any[] }) {
 
   const filteredProducts = selectedCategory
     ? products.filter((product) => {
-      const productCategory = product.category?.name?.toLowerCase();
-      const queryCategory = selectedCategory.toLowerCase();
-      return productCategory === queryCategory;
-    })
+        const productCategory = product.category?.name?.toLowerCase();
+        const queryCategory = selectedCategory.toLowerCase();
+        return productCategory === queryCategory;
+      })
     : products;
 
   console.log("Filtered products:", filteredProducts);
