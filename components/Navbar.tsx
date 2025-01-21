@@ -184,7 +184,9 @@ const Navbar = () => {
                     <Image src="/nav-user.svg" alt="Image-failed" width={16} height={16} />
                 </div>
             </div>
-            <Category />
+            <div className="categories-container overflow-x-auto whitespace-nowrap">
+                <Category />
+            </div>
         </nav>
     )
 }
