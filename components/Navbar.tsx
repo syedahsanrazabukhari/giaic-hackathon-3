@@ -22,6 +22,7 @@ const Navbar = () => {
     const [searchResults, setSearchResults] = useState<Product[]>([]);
     const [showResults, setShowResults] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -40,16 +41,14 @@ const Navbar = () => {
             }
         };
 
+        window.addEventListener('cartUpdate', updateCounts);
+        window.addEventListener('wishlistUpdate', updateCounts);
+
         updateCounts();
 
-        window.addEventListener('storage', updateCounts);
-        window.addEventListener('wishlistUpdate', updateCounts);
-        window.addEventListener('cartUpdate', updateCounts);
-
         return () => {
-            window.removeEventListener('storage', updateCounts);
-            window.removeEventListener('wishlistUpdate', updateCounts);
             window.removeEventListener('cartUpdate', updateCounts);
+            window.removeEventListener('wishlistUpdate', updateCounts);
         };
     }, []);
 
@@ -99,6 +98,10 @@ const Navbar = () => {
         setSearchTerm('');
     };
 
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
+    };
+
     return (
         <nav className="px-6 sm:px-[28px] py-5">
             <div className="flex justify-between items-center sm:pb-5 sm:border-b border-[#0000001a]">
@@ -146,7 +149,14 @@ const Navbar = () => {
                             ))}
                         </div>
                     )}
-                    <Image src="/nav-hamburger.svg" alt="Image failed" width={16} height={16} className="sm:hidden" />
+                    <Image src="/nav-hamburger.svg" alt="Image failed" width={16} height={16} className="sm:hidden" onClick={toggleDropdown} />
+                    {dropdownOpen && (
+                        <div className="absolute top-full right-0 mt-2 w-[150px] bg-white rounded-lg shadow-lg z-50 border border-gray-200">
+                            <Link href="/cart" className="block p-3 hover:bg-gray-50 transition-colors">Cart</Link>
+                            <Link href="/wishlist" className="block p-3 hover:bg-gray-50 transition-colors">Wishlist</Link>
+                            <Link href="/about" className="block p-3 hover:bg-gray-50 transition-colors">About Us</Link>
+                        </div>
+                    )}
                 </div>
 
                 <Link href="/"><Image src="/avion-logo.png" alt="Image failed" width={65} height={30} /></Link>
