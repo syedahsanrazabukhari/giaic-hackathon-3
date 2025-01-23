@@ -59,10 +59,10 @@ const CartProducts = () => {
         return products?.reduce((acc, product) => acc + product.quantity * product.price, 0);
     };
 
-    const handleCheckout = () => {
-        localStorage.removeItem('cart');
-        setProducts([]);
-    };
+    // const handleCheckout = () => {
+    //     localStorage.removeItem('cart');
+    //     setProducts([]);
+    // };
 
     const removeItem = (productId: string) => {
         const updatedProducts = products?.filter(product => product._id !== productId);
@@ -150,10 +150,9 @@ const CartProducts = () => {
                                 Taxes and shipping are calculated at checkout
                             </p>
                         </div>
-                        <Link href="/">
+                        <Link href="/customerinfo">
                             <button
                                 type="button"
-                                onClick={handleCheckout}
                                 className="bg-[--dark-primary] max-sm:w-full block w-fit ml-auto text-white py-4 mt-8 sm:mt-4 px-[117px] sm:px-[48px]"
                             > Go to checkout
                             </button>
