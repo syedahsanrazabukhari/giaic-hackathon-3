@@ -6,6 +6,7 @@ import Category from "./Category"
 import { IoHeartOutline } from 'react-icons/io5';
 import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
+import LoginIn from "./LoginIn";
 
 interface Product {
     _id: string;
@@ -69,7 +70,7 @@ const Navbar = () => {
                     price,
                     "slug": slug.current
                 }[0...5]`;
-                
+
                 const results = await client.fetch(query);
                 setSearchResults(results);
             } catch (error) {
@@ -107,10 +108,10 @@ const Navbar = () => {
             <div className="flex justify-between items-center sm:pb-5 sm:border-b border-[#0000001a]">
                 <div className="flex gap-x-5 max-sm:order-1 relative">
                     <div className="flex items-center bg-slate-200 rounded-full px-3 py-3 border border-transparent focus-within:border-black">
-                        <Image src="/nav-search.svg" alt="Search Icon" width={16} height={16} className="mr-2"/>
-                        <input 
-                            type="text"  
-                            placeholder="Search..."  
+                        <Image src="/nav-search.svg" alt="Search Icon" width={16} height={16} className="mr-2" />
+                        <input
+                            type="text"
+                            placeholder="Search..."
                             className="bg-transparent focus:outline-none text-sm w-full"
                             value={searchTerm}
                             onChange={(e) => {
@@ -122,12 +123,12 @@ const Navbar = () => {
                         />
                     </div>
                     {showResults && searchResults.length > 0 && (
-                        <div 
+                        <div
                             className="absolute top-full left-0 mt-2 w-[300px] bg-white rounded-lg shadow-lg z-50 border border-gray-200"
                             onMouseDown={(e) => e.preventDefault()} // Prevent onBlur from firing before click
                         >
                             {searchResults.map((product) => (
-                                <Link 
+                                <Link
                                     key={product._id}
                                     href={`/products/${product.slug}`}
                                     className="flex items-center gap-3 p-3 hover:bg-gray-50 transition-colors cursor-pointer"
@@ -162,7 +163,7 @@ const Navbar = () => {
                 <Link href="/"><Image src="/avion-logo.png" alt="Image failed" width={65} height={30} /></Link>
 
                 <div className="flex gap-x-4 max-sm:hidden items-center">
-                    <Link href="/about"> 
+                    <Link href="/about">
                         <Image src="/about-us-2.jpg" alt="Image-failed" width={30} height={30} />
                     </Link>
                     <Link href="/wishlist" className="relative">
@@ -181,7 +182,7 @@ const Navbar = () => {
                             </span>
                         )}
                     </Link>
-                    <Image src="/nav-user.svg" alt="Image-failed" width={16} height={16} />
+                    <LoginIn />
                 </div>
             </div>
             <div className="categories-container overflow-x-auto whitespace-nowrap">
