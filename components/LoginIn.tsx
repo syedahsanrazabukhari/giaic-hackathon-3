@@ -3,12 +3,14 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 function LoginIn() {
     return (
         <>
-            <SignedOut>
-                <SignInButton />
-            </SignedOut>
-            <SignedIn>
-                <UserButton />
-            </SignedIn>
+            <div className="max-sm:pl-3 max-sm:py-2 max-sm:text-[17px]"> 
+                <SignedOut>
+                    <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                    <UserButton />
+                </SignedIn>
+            </div>
         </>
     );
 }

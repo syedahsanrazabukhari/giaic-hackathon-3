@@ -156,6 +156,7 @@ const Navbar = () => {
                             <Link href="/cart" className="block p-3 hover:bg-gray-50 transition-colors">Cart</Link>
                             <Link href="/wishlist" className="block p-3 hover:bg-gray-50 transition-colors">Wishlist</Link>
                             <Link href="/about" className="block p-3 hover:bg-gray-50 transition-colors">About Us</Link>
+                            <LoginIn />
                         </div>
                     )}
                 </div>
