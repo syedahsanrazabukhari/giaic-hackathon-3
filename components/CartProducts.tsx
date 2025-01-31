@@ -59,7 +59,7 @@ const CartProducts = () => {
         return products?.reduce((acc, product) => acc + product.quantity * product.price, 0);
     };
 
-    const handleCheckout = () => {
+    const clearcart = () => {
         localStorage.removeItem('cart');
         setProducts([]);
     };
@@ -150,14 +150,20 @@ const CartProducts = () => {
                                 Taxes and shipping are calculated at checkout
                             </p>
                         </div>
-                        
+                        <div className="flex gap-x-4 mt-8">
                             <button
-                            onClick={handleCheckout}
+                            onClick={clearcart}
                                 type="button"
                                 className="bg-[--dark-primary] max-sm:w-full block w-fit ml-auto text-white py-4 mt-8 sm:mt-4 px-[117px] sm:px-[48px]"
-                            > Go to checkout
+                            > Clear Cart
                             </button>
-                       
+                            <button
+                            onClick={clearcart}
+                                type="button"
+                                className="bg-[--dark-primary] max-sm:w-full block w-fit ml-auto text-white py-4 mt-8 sm:mt-4 px-[117px] sm:px-[48px]"
+                            > Go To Checkout
+                            </button>
+                            </div>
                     </div>
                 </>
             )}
