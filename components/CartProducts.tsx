@@ -154,7 +154,7 @@ const CartProducts = () => {
                             <button
                             onClick={clearcart}
                                 type="button"
-                                className="bg-[--dark-primary] max-sm:w-full block w-fit ml-auto text-white py-4 mt-8 sm:mt-4 px-[117px] sm:px-[48px]"
+                                className="whitespace-nowrap bg-[--dark-primary] max-sm:w-full block w-fit ml-auto text-white py-4 mt-8 sm:mt-4 px-[117px] sm:px-[48px]"
                             > Clear Cart
                             </button>
                             <button
