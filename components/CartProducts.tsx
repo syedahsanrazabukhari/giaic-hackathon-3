@@ -150,7 +150,7 @@ const CartProducts = () => {
                                 Taxes and shipping are calculated at checkout
                             </p>
                         </div>
-                        <div className="flex gap-x-4 mt-8">
+                        <div className="max-sm:space-y-4 sm:flex gap-x-4 mt-8">
                             <button
                             onClick={clearcart}
                                 type="button"
