@@ -27,6 +27,7 @@ const Navbar = () => {
 
     useEffect(() => {
         setMounted(true);
+        debugger
         const updateCounts = () => {
             if (typeof window !== 'undefined') {
                 try {
@@ -125,7 +126,7 @@ const Navbar = () => {
                     {showResults && searchResults.length > 0 && (
                         <div
                             className="absolute top-full left-0 mt-2 w-[300px] bg-white rounded-lg shadow-lg z-50 border border-gray-200"
-                            onMouseDown={(e) => e.preventDefault()} // Prevent onBlur from firing before click
+                            onMouseDown={(e) => e.preventDefault()} 
                         >
                             {searchResults.map((product) => (
                                 <Link

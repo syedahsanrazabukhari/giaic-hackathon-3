@@ -6,7 +6,7 @@ import { useUser } from "@clerk/nextjs";
 
 const AddToCartBtn = ({ id }: { id: number }) => {
     const router = useRouter();
-    const { isSignedIn } = useUser(); // Get sign-in status
+    const { isSignedIn } = useUser(); 
 
     const addToCart = () => {
         if (!isSignedIn) {

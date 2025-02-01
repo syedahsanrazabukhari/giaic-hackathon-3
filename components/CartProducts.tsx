@@ -16,7 +16,7 @@ const CartProducts = () => {
                 setIsLoading(true);
                 const cartData = window.localStorage.getItem('cart');
                 const cart = cartData ? JSON.parse(cartData) : null;
-                
+
                 if (cart && cart.length > 0) {
                     let cartProducts = await client.fetch(`
                         *[_type == "product" && _id in $cart] {
@@ -73,6 +73,20 @@ const CartProducts = () => {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
     };
 
+    async function handlecheckout(products: any) {
+        debugger
+        const response = await fetch('/api/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ products }),
+        })
+        const data = await response.json();
+        window.location.href = data.url;
+
+    }
+
     return (
         <div className="px-4 py-8">
             {isLoading ? (
@@ -127,7 +141,7 @@ const CartProducts = () => {
                                     </td>
                                     <td className="max-sm:hidden text-center sm:w-28">£{product.quantity * product.price}</td>
                                     <td>
-                                        <button 
+                                        <button
                                             onClick={() => removeItem(product._id)}
                                             className="text-red-500 hover:text-red-700 transition-colors p-2"
                                             aria-label="Remove item"
@@ -152,18 +166,18 @@ const CartProducts = () => {
                         </div>
                         <div className="max-sm:space-y-4 sm:flex gap-x-4 mt-8">
                             <button
-                            onClick={clearcart}
+                                onClick={clearcart}
                                 type="button"
                                 className="whitespace-nowrap bg-[--dark-primary] max-sm:w-full block w-fit ml-auto text-white py-4 mt-8 sm:mt-4 px-[117px] sm:px-[48px]"
                             > Clear Cart
                             </button>
                             <button
-                            onClick={clearcart}
+                                onClick={() => handlecheckout(products)}
                                 type="button"
                                 className="bg-[--dark-primary] max-sm:w-full block w-fit ml-auto text-white py-4 mt-8 sm:mt-4 px-[117px] sm:px-[48px]"
                             > Go To Checkout
                             </button>
-                            </div>
+                        </div>
                     </div>
                 </>
             )}
