@@ -1,9 +1,18 @@
+"use client";
+
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
 import Link from "next/link"
-
+import { useEffect } from 'react';
 
 function cancel() {
+  useEffect(() => {
+    const clearCart = () => {
+      localStorage.removeItem('cart');
+    };
+    clearCart();
+  }, []);
+
   return (
     <>
     <Navbar />

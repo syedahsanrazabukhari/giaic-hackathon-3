@@ -13,7 +13,7 @@ export default function Footer() {
                         <li>Best sellers</li>
                         <li>Recently viewed</li>
                         <li>Popular this week</li>
-                       <Link href="/products"> <li>All products</li></Link>
+                        <Link href="/products"> <li>All products</li></Link>
                     </ul>
                 </div>
 
@@ -30,7 +30,7 @@ export default function Footer() {
                 </div>
 
                 <div className="space-y-3 max-sm:mt-10">
-                   <Link href="/"> <h5>Our company</h5></Link>
+                    <Link href="/"> <h5>Our company</h5></Link>
 
                     <ul className="space-y-3">
                         <Link href="/about"><li>About us</li></Link>
