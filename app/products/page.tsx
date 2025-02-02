@@ -41,7 +41,7 @@ export default async function Home() {
 
           <div className="flex items-center gap-x-4 max-sm:hidden">
             <span className="body-sm">Sorting by:</span>
-            <div className="flex gap-x-2 items-center py-3 px-6">
+            <div className="flex gap-x-2 items-center py-4 px-6">
               <p>Date added</p>
               <Image src="/caret-down.svg" alt="Failed to load" width={16} height={16} />
             </div>
