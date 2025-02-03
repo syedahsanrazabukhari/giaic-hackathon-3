@@ -20,7 +20,7 @@ export default function ProductItemsClient({ products }: { products: any[] }) {
   console.log("Filtered products:", filteredProducts);
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[40px] my-20 mx-10">
+    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-[40px] my-20 mx-10">
       {filteredProducts.length > 0 ? (
         filteredProducts.map((product) => (
           <ProductCard key={product._id} product={product} />
