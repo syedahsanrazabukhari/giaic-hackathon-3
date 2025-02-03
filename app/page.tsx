@@ -91,7 +91,7 @@ export default async function Home() {
 
       {/* third section */}
       <div className='w-390 lg:w-full pt-6 pb-7 px-6 lg:px-[80px]'>
-        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[40px] rounded-xl'>
+        <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-[40px] rounded-xl'>
           {data.slice(0, 4).map((product: any) => (
             <FeaturedProductCard key={product._id} product={product} />
           ))}
